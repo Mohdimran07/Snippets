@@ -1,5 +1,13 @@
-import Image from "next/image";
+import { db } from "@/db";
 
-export default function Home() {
-return <div className="text-center">Home Page!</div>;
-}
+const Home = async () => {
+  const snippets = await db.snippet.findMany();
+
+  const renederSnippets = snippets?.map((snippet) => {
+    return <div id={snippet.id}>{snippet.title}</div>;
+  });
+
+  return <div className="container mx-auto ">{renederSnippets}</div>;
+};
+
+export default Home;
