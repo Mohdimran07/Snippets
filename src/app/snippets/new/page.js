@@ -8,13 +8,13 @@ export default function snippetCreate() {
     const title = formData.get("title");
     const code = formData.get("code");
 
-    const snippet = await db.snippet.create({
+     await db.snippet.create({
       data: {
         title,
         code,
       },
     });
-    console.log(snippet);
+
     redirect('/')
   };
   return (
