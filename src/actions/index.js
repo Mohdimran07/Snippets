@@ -1,6 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 import { db } from "@/db";
 
 const createSnippet = async (formState, formData) => {
@@ -36,6 +37,7 @@ const createSnippet = async (formState, formData) => {
     };
   }
 
+  revalidatePath("/");
   redirect("/");
 };
 
@@ -45,6 +47,7 @@ const editSnippet = async (id, code) => {
     data: { code },
   });
 
+  revalidatePath(`/snippets/${id}`)
   redirect(`/snippets/${id}`);
 };
 
@@ -53,6 +56,7 @@ const deleteSnippet = async (id) => {
     where: { id },
   });
 
+  revalidatePath("/");
   redirect("/");
 };
 
